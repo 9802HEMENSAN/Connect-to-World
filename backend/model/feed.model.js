@@ -1,6 +1,14 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const newsFeedSchema = new mongoose.Schema({
+  email: {
+    type: String,
+    required: true,
+  },
+  name: {
+    type: String,
+    required: true,
+  },
   title: {
     type: String,
     required: true,
@@ -37,8 +45,8 @@ const newsFeedSchema = new mongoose.Schema({
   },
 });
 
-const NewsFeedModel = mongoose.model('saving', newsFeedSchema);
+const NewsFeedModel = mongoose.model("saving", newsFeedSchema);
 
 module.exports = {
-    NewsFeedModel
-}
+  NewsFeedModel,
+};
