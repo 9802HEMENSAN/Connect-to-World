@@ -2,6 +2,9 @@
 import { useEffect } from "react";
 import "./App.css";
 import { useAuth0 } from "@auth0/auth0-react";
+import AllRoutes from "./routes/AllRoutes";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function App() {
   const { loginWithRedirect, logout, user, isAuthenticated, isLoading } =
@@ -25,8 +28,8 @@ function App() {
       const userDetails = await userResponse.json()
       console.log(userDetails)
       setTimeout(() => {
-        alert(userDetails.msg)
-      }, 3000);
+        alert("Login Successful !!")
+      }, 2000);
     } catch (error) {
       console.log("error: " + error)
       alert("Login Failed !!")
@@ -37,9 +40,12 @@ function App() {
      if (isAuthenticated) {
        console.log(user);
        console.log(isAuthenticated);
+
         LoginUser()
      }
-  },[isAuthenticated])
+      
+ 
+  },[]);
  
   if (isLoading) {
     return <div>Loading ...</div>;
@@ -47,21 +53,9 @@ function App() {
 
   return (
     <div className="App">
-      <button onClick={() => loginWithRedirect()}>Log In</button>
-      <button
-        onClick={() =>
-          logout({ logoutParams: { returnTo: window.location.origin } })
-        }
-      >
-        Log Out
-      </button>
-      {isAuthenticated && (
-        <div>
-          <img src={user.picture} alt={user.name} />
-          <h2>{user.name}</h2>
-          <p>{user.email}</p>
-        </div>
-      )}
+      <Navbar/>
+      <AllRoutes/>
+      <Footer/>
     </div>
   );
 }
