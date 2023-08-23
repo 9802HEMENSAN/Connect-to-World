@@ -1,16 +1,30 @@
 const express = require('express');
-
+const { UserRouter } = require("./routes/users.route")
 // https://gnews.io/api/v4/search?q=example&lang=en&country=us&max=10&apikey=221e180a111fac6abf3e20a582138e8d
-
-
-
+const { connection } = require("./config/db")
+const cors= require('cors');
+require("dotenv").config()
 const app = express();
-const port = 3000;
+app.use(cors())
+app.use(express.json())
+
+const port = 8080;
+app.use("/user", UserRouter )
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
-app.listen(port, () => {
+app.post("/login", (req, res) => {
+    res.send(req.body)
+})
+
+app.listen(port, async () => {
+    try {
+        await connection
+        console.log("Connected to Database !!")
+    } catch (error) {
+        console.log("Error connecting to Database")
+    }
     console.log(`App is running at http://localhost:${port}`)
 })
