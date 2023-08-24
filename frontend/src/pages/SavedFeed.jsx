@@ -23,17 +23,15 @@ const SavedFeed = () => {
 
   const GetSavedFeeds = async () => {
     try {
-
-      const response = await axios("http://localhost:8080/feed/savefeeds", {
-         method : "POST",
-         headers : {
-           'Content-type' : 'application/json'
-         },
-         body : JSON.stringify({
-           email : user.email
-         })
-      });
+ 
+      const response = await axios.post(`https://weary-ring-colt.cyclic.cloud/feed/savefeeds`, 
+         {
+           email :  "hmahilange9802@gmail.com"  
+         } 
+      ) 
+      
       console.log(response);
+      console.log(user.email);
       setNewsData(response.data);
     } catch (error) {
       console.log(error);

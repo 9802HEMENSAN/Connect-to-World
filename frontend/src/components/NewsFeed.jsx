@@ -46,7 +46,8 @@ const NewsFeed = () => {
         ItemDetails.email= user.email;
         ItemDetails.name = user.name;
         console.log(user)
-        const response= await fetch(`http://localhost:8080/feed/savefeed`, {     
+        const BASE_URL= `https://weary-ring-colt.cyclic.cloud`
+        const response= await fetch(`${BASE_URL}/feed/savefeed`, {     
          method : 'POST',
          headers : {
            'Content-type' : 'application/json'
