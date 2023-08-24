@@ -19,7 +19,7 @@ const Queries = (props) => {
     >
       <div className="select-container" >
         <h2>Select a Category:</h2>
-        <Select borderColor="pink" minWidth={["200px","300px","100px"]} value={selectedCategory} onChange={handleCategoryChange}>
+        <Select borderColor="pink" minWidth={["100px","200px","100px"]} value={selectedCategory} onChange={handleCategoryChange}>
           {categories.map((category) => (
             <option key={category} value={category}>
               {category}
@@ -29,7 +29,7 @@ const Queries = (props) => {
       </div>
       <div className="select-container" >
         <h2>Select a Country:</h2>
-        <Select   minWidth={["200px","300px","100px"]} value={selectedCountry}   onChange={handleCountryChange}>
+        <Select   minWidth={["100px","200px","100px"]} value={selectedCountry}   onChange={handleCountryChange}>
           {countries.map((country) => (
             <option key={country.value} value={country.value}>
               {country.label}
@@ -40,7 +40,7 @@ const Queries = (props) => {
       <div className="select-container" >
         <h2>Select a Language:</h2>
         <Select value={selectedLanguage}  
-       minWidth={["200px","300px","100px"]}
+       minWidth={["100px","200px","100px"]}
         onChange={handleLanguageChange}>
           {languageOptions.map((option) => (
             <option key={option.value} value={option.value}>

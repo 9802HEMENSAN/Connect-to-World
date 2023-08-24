@@ -20,6 +20,9 @@ import {
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link as RouterLink } from "react-router-dom";
+import Swal from "sweetalert2";
+import { FaUserCircle  } from "react-icons/fa";
+import {AiOutlineLogin } from "react-icons/ai";
 
 const NavLink = (props) => {
   const { children } = props;
@@ -47,6 +50,16 @@ export default function Navbar() {
   const { loginWithRedirect, logout, user, isAuthenticated, isLoading } =
     useAuth0();
 
+  const LoginSuccess = () => {
+    loginWithRedirect();
+  };
+  const LogOutSuccess = () => {
+    Swal.fire("We will be waiting for you", "LogOut Successful !!", "success");
+    logout({
+      logoutParams: { returnTo: window.location.origin },
+    });
+  };
+
   return (
     <>
       <Box
@@ -55,24 +68,26 @@ export default function Navbar() {
         position="sticky"
         top="0"
         p={5}
-        ZIndex={10000}
-        opacity={1.2}
       >
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <RouterLink to="/">
-            <Text fontSize={"2xl"} fontWeight={"bold"} as="h1">
+            <Text
+              fontSize={["14px", "16px", "20px"]}
+              fontWeight={"bold"}
+              as="h1"
+            >
               Your Choice
             </Text>
           </RouterLink>
           {isAuthenticated && (
             <RouterLink to="/saved">
-              <Text fontSize={"2xl"} fontWeight={"bold"}>
+              <Text fontSize={["14px", "16px", "20px"]} fontWeight={"bold"}>
                 SavedFeed
               </Text>
             </RouterLink>
           )}
-          <Box fontSize={{ base: "2xl", md: "3xl" }}>
-            {isAuthenticated && `Welcome ${user.name}...`}
+          <Box fontSize={["14px", "16px", "20px"]}>
+            {isAuthenticated && `Welcome ${user.given_name}`}
           </Box>
           <Flex alignItems={"center"}>
             <Stack direction={"row"} spacing={7}>
@@ -98,19 +113,23 @@ export default function Navbar() {
                   />
                 </MenuButton>
                 <MenuList alignItems={"center"}>
-                  <MenuItem onClick={() => loginWithRedirect()}>
-                    {!isAuthenticated && "Login"}
-                  </MenuItem>
-                  <MenuItem>Account Settings</MenuItem>
-                  <MenuItem
-                    onClick={() =>
-                      logout({
-                        logoutParams: { returnTo: window.location.origin },
-                      })
-                    }
+                {!isAuthenticated &&  <MenuItem
+                    fontSize={["14px", "16px", "20px"]}
+                    onClick={() => LoginSuccess()}
                   >
-                    {isAuthenticated && "Log Out"}
-                  </MenuItem>
+                    <Flex justifyContent={"center"} alignItems={"center"} gap={2}> 
+                   <FaUserCircle />
+                     <Text mr={2}>Login</Text>
+                     </Flex>
+                  </MenuItem>}
+
+                 {isAuthenticated && <MenuItem onClick={() => LogOutSuccess()}>
+                  <Flex justifyContent={"center"} alignItems={"center"} gap={2}>
+
+                  <AiOutlineLogin/> 
+                  <Text mr={2}>Log Out</Text> 
+                  </Flex>
+                  </MenuItem>}
                 </MenuList>
               </Menu>
             </Stack>
@@ -120,11 +139,3 @@ export default function Navbar() {
     </>
   );
 }
-
-// {isAuthenticated && (
-//     <div>
-//       <img src={user.picture} alt={user.name} />
-//       <h2>{user.name}</h2>
-//       <p>{user.email}</p>
-//     </div>
-//   )}

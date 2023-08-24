@@ -5,6 +5,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import AllRoutes from "./routes/AllRoutes";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import { Box, Img } from "@chakra-ui/react";
+import Swal from "sweetalert2";
 
 function App() {
   const { loginWithRedirect, logout, user, isAuthenticated, isLoading } =
@@ -28,11 +30,11 @@ function App() {
       const userDetails = await userResponse.json()
       console.log(userDetails)
       setTimeout(() => {
-        alert("Login Successful !!")
+        Swal.fire("Login Successful !!", "Welcome to Your Choice news app !!", "success")
       }, 2000);
     } catch (error) {
       console.log("error: " + error)
-      alert("Login Failed !!")
+      alert("Login Failed !!", "Please try again","error")
     }
   }
 
@@ -43,12 +45,10 @@ function App() {
 
         LoginUser()
      }
-      
- 
   },[]);
  
   if (isLoading) {
-    return <div>Loading ...</div>;
+    return <Box display={"flex"} justifyContent={"center"} alignItems={"center"} height={"500px"}><Img src="https://miro.medium.com/v2/resize:fit:828/1*m_oaAaXuVF5KcOsRfOoLaQ.gif"/></Box>;
   }
 
   return (

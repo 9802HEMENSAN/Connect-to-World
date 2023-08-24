@@ -14,9 +14,10 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { BsFillBookmarkHeartFill } from "react-icons/bs";
+import SingleNews from "../components/SingleNews";
 
 const SavedFeed = () => {
-  const { loginWithRedirect, logout, user, isAuthenticated, isLoading } =
+  const {  user } =
     useAuth0();
   const [newsData, setNewsData] = useState([]);
 
@@ -44,7 +45,7 @@ const SavedFeed = () => {
 
   return (
     <Box>
-      <Heading size={["sm", "md", "lg", "2xl"]}>Latest News Headlines</Heading>
+      <Heading size={["sm", "md", "lg", "2xl"]} m={5}>Latest News Headlines</Heading>
       <Divider />
       <Grid
         templateColumns="repeat(auto-fill, minmax(500px, 1fr))"
@@ -53,31 +54,10 @@ const SavedFeed = () => {
       >
         {newsData.length > 0 ? (
           newsData.map((newsItem, index) => (
-            <GridItem key={index} borderWidth="1px" borderRadius="md" p={4}>
-              <Heading fontSize={["23px", "30px", "40px"]} size="md" m={4}>
-                {newsItem.title}
-              </Heading>
-              <Text fontSize={["14px", "16px", "20px"]} m={4}>
-                {newsItem.description}
-              </Text>
-              <Image src={newsItem.image} alt={newsItem.title} my={2} />
-              <Text fontSize={["14px", "16px", "20px"]}>
-                Published on: {new Date(newsItem.publishedAt).toLocaleString()}
-              </Text>
-
-              <Link
-                href={newsItem.url}
-                fontSize={["14px", "16px", "20px"]}
-                color={"pink"}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Read Full Article --^
-              </Link>
-            </GridItem>
+             <SingleNews key={index} newsItem={newsItem} />
           ))
         ) : (
-          <Text>No news found</Text>
+          <Text color="red.500">Please add new News to Your Account !!</Text>
         )}
       </Grid>
     </Box>
