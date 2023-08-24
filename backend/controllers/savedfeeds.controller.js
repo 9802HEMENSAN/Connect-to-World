@@ -13,8 +13,8 @@ const SavedFeeds = async (req, res) => {
 }
 const GetSavedFeeds = async (req, res) => {
     try {
-        console.log("getSavedFeeds",req.body.email)
-        const feeds = await NewsFeedModel.find()
+        console.log("getSavedFeeds", req.body.email)
+        const feeds = await NewsFeedModel.find({email : req.body.email })
         res.status(200).json(feeds)
       
     } catch (error) {
