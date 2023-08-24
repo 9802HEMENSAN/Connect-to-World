@@ -8,7 +8,7 @@ const app = express();
 app.use(cors())
 app.use(express.json())
 
-const port = 8080;
+const port = process.env.PORT || 8080;
 app.use("/user", UserRouter )
 app.use("/feed", SavedFeedRouter )
 app.get('/', (req, res) => {
